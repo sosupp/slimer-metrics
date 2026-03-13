@@ -83,11 +83,13 @@ class ReportEngine
 
             $query = $builder->build($metricName, $this->groupBy);
 
+            $data = $query->pluck('value')->toArray();
+
             $metricValues[$metricName] = array_sum($data);
 
             $datasets[] = [
                 'metric' => $metricName,
-                'data' => $query->pluck('value')->toArray(),
+                'data' => $data,
                 'prev_sum' => 0,
                 'pct_change' => 0
             ];

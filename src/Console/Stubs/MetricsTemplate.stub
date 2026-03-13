@@ -1,0 +1,36 @@
+<?php
+namespace {{ namespace }};
+use Sosupp\SlimerMetrics\Contracts\MetricRegistryInterface;
+use Sosupp\SlimerMetrics\Engine\MetricCollection;
+
+class {{ class }} implements MetricRegistryInterface
+{
+    public function metrics(): MetricCollection
+    {
+        return (new MetricCollection())
+
+            ->add(
+                Metric::make('name')
+                ->table('table')
+                ->column('col')
+                ->sum()
+                ->where('col', 'value')
+            )
+            ->add(
+                Metric::make('name')
+                ->table('table')
+                ->column('col')
+                ->sum()
+                ->where('col', 'value')
+            )
+            ->add(
+                Metric::make('net_cashflow')
+                ->expression('deposit_total - withdrawal_total')
+            );
+    }
+
+    public function get(string $metric): ?array
+    {
+        return $this->metrics()->get($metric);
+    }
+}

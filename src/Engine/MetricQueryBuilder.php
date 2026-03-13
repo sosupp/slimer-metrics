@@ -18,7 +18,7 @@ class MetricQueryBuilder
     {
         $definition = $this->registry->get($metric);
 
-        $definition = $metric->toArray();
+        $definition = $definition->toArray();
 
         $query = DB::table($definition['table']);
 
