@@ -1,0 +1,48 @@
+{
+  "name": "sosupp/slimer-metrics",
+  "description": "Universal metrics and analytics engine for Laravel dashboards and reporting",
+  "type": "library",
+  "keywords": [
+    "sosupp",
+    "slimer-metrics"
+  ],
+  "authors": [
+    {
+      "name": "Prosper Sosu",
+      "email": "prospersosu@gmail.com"
+    }
+  ],
+  "homepage": "https://github.com/sosupp/slimer-metrics",
+  "require": {
+    "php": "^8.0|^8.1|^8.2|^8.3",
+    "illuminate/support": "*",
+    "laravel/sanctum": "^4.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^12.5",
+    "orchestra/testbench": "*"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Sosupp\\SlimerMetrics\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Sosupp\\SlimerMetrics\\SlimerMetricsServiceProvider"
+      ],
+      "aliases": {
+        "SlimerMetrics": "Sosupp\\SlimerMetrics\\SlimerMetricsFacade"
+      }
+    }
+  }
+}
