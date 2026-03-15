@@ -7,12 +7,15 @@ class ChartBuilder
     {
         $charts = [];
 
+        // dd($series, $metrics);
+
         foreach ($metrics as $index => $metric) {
 
             $dataset = $series['datasets'][$index] ?? [];
             $data = $dataset['data'] ?? [];
 
             $charts[$metric] = [
+                'type' => $dataset['chartType'] ?? 'bar',
 
                 'key' => $metric,
 
@@ -20,11 +23,19 @@ class ChartBuilder
 
                 'data' => $data,
 
-                'sum' => array_sum($data),
+                'sum' => [
+                    'current' => number_format(array_sum($data), 2),
+                    'previous' => number_format($dataset['prev_sum'], 2) ?? 0,
+                    'change' => $dataset['pct_change'] ?? null,
+                ],
 
-                'prev_sum' => $dataset['prev_sum'] ?? 0,
+                'count' => [
+                    'current' => 0,
+                    'previous' => 0,
+                    'change' => null,
+                ],
 
-                'change' => $dataset['pct_change'] ?? null
+                'meta' => $series['meta']
 
             ];
         }

@@ -14,16 +14,18 @@ class MetricQueryBuilder
         $this->registry = $registry;
     }
 
-    public function build($metric, $groupBy = null)
+    public function build($metric, $date, $groupBy = null)
     {
+        // dd($groupBy, $date);
+
         $definition = $this->registry->get($metric);
 
         $definition = $definition->toArray();
 
-        $query = DB::table($definition['table']);
+        $query = DB::table($definition['table'])
+        ->whereBetween('created_at', $date);
 
         if(isset($definition['where'])) {
-
             foreach ($definition['where'] as $column => $value) {
                 $query->where($column, $value);
             }
@@ -38,7 +40,9 @@ class MetricQueryBuilder
         }
 
         if($groupBy) {
-            $query->groupBy($groupBy);
+            $query->selectRaw("$groupBy AS bucket")
+            ->groupBy('bucket')
+            ->orderBy('bucket');
         }
 
         return $query;

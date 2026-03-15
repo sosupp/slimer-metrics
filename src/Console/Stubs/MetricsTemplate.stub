@@ -29,7 +29,7 @@ class {{ class }} implements MetricRegistryInterface
             );
     }
 
-    public function get(string $metric): ?array
+    public function get(string $metric)
     {
         return $this->metrics()->get($metric);
     }

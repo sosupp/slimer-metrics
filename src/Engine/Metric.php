@@ -9,6 +9,7 @@ class Metric
     protected $type = 'sum';
     protected $wheres = [];
     protected $expression = null;
+    public $chartType = 'bar';
 
     public static function make(string $name)
     {
@@ -55,6 +56,13 @@ class Metric
         return $this;
     }
 
+    public function chartType(string $chartType)
+    {
+        $this->chartType = $chartType;
+
+        return $this;
+    }
+
     public function isComputed(): bool
     {
         return !is_null($this->expression);
@@ -72,7 +80,8 @@ class Metric
             'table' => $this->table,
             'column' => $this->column,
             'type' => $this->type,
-            'where' => $this->wheres
+            'where' => $this->wheres,
+            'chartType' => $this->chartType,
         ];
     }
 }
